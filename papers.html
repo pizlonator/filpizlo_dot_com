@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Papers</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  line-height: 1.7;
+  color: #2d3748;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #ffecd2 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  padding: 1rem;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2.5rem;
+  background: rgba(255, 255, 255, 0.97);
+  min-height: calc(100vh - 2rem);
+  border-radius: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+nav {
+  border-bottom: 3px solid transparent;
+  border-image: linear-gradient(90deg, #667eea, #f093fb, #f5576c) 1;
+  padding-bottom: 1.25rem;
+  margin-bottom: 2.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+nav a {
+  color: #4a5568;
+  text-decoration: none;
+  margin-right: 1.5rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+nav a:hover {
+  color: #fff;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+h1 {
+  font-size: 2.75rem;
+  margin-bottom: 1.5rem;
+  color: #1a202c;
+  font-weight: 800;
+  background: linear-gradient(135deg, #667eea 0%, #f5576c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+
+h2 {
+  font-size: 2rem;
+  margin: 2.5rem 0 1rem;
+  color: #2d3748;
+  font-weight: 700;
+  position: relative;
+  padding-left: 1rem;
+}
+
+h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.3rem;
+  bottom: 0.3rem;
+  width: 4px;
+  background: linear-gradient(180deg, #667eea 0%, #f093fb 100%);
+  border-radius: 2px;
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin: 2rem 0 0.75rem;
+  color: #4a5568;
+  font-weight: 600;
+}
+
+p {
+  margin-bottom: 1.25rem;
+  line-height: 1.8;
+  color: #4a5568;
+}
+
+a {
+  color: #667eea;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-weight: 500;
+}
+
+a:hover {
+  color: #764ba2;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+ul, ol {
+  margin: 1.25rem 0 1.25rem 2rem;
+}
+
+li {
+  margin-bottom: 0.75rem;
+  position: relative;
+}
+
+li::marker {
+  color: #667eea;
+}
+
+code {
+  background: linear-gradient(135deg, #edf2f7 0%, #e2e8f0 100%);
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  font-family: 'JetBrains Mono', 'Monaco', 'Menlo', monospace;
+  font-size: 0.9em;
+  color: #764ba2;
+  border: 1px solid rgba(102, 126, 234, 0.2);
+}
+
+pre {
+  background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+  color: #f7fafc;
+  padding: 1.5rem;
+  border-radius: 12px;
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  color: #f7fafc;
+  border: none;
+}
+
+blockquote {
+  border-left: 4px solid #667eea;
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  color: #4a5568;
+  font-style: italic;
+  background: linear-gradient(90deg, rgba(102, 126, 234, 0.1) 0%, transparent 100%);
+  border-radius: 0 12px 12px 0;
+}
+
+hr {
+  border: none;
+  height: 3px;
+  background: linear-gradient(90deg, #667eea, #f093fb, #f5576c, transparent);
+  margin: 3rem 0;
+  border-radius: 2px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+
+/* Index page with author photo */
+.author-section {
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.author-photo {
+  flex: 0 0 450px;
+}
+
+.author-photo img {
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3), 0 0 0 4px rgba(255, 255, 255, 0.5);
+  transition: all 0.4s ease;
+}
+
+.author-photo img:hover {
+  transform: scale(1.02) rotate(1deg);
+  box-shadow: 0 30px 60px rgba(102, 126, 234, 0.4);
+}
+
+.author-content {
+  flex: 1;
+  min-width: 300px;
+}
+
+/* Photo gallery */
+.gallery-header {
+  margin-bottom: 2rem;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.gallery-item {
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  aspect-ratio: 4/3;
+  background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e0 100%);
+  position: relative;
+}
+
+.gallery-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(102, 126, 234, 0.25);
+}
+
+.gallery-item:hover::after {
+  opacity: 1;
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.gallery-item:hover img {
+  transform: scale(1.1);
+}
+
+/* Lightbox */
+.lightbox {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(26, 32, 44, 0.98);
+  z-index: 1000;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+}
+
+.lightbox.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox img {
+  max-width: 95%;
+  max-height: 95%;
+  object-fit: contain;
+  box-shadow: 0 0 60px rgba(102, 126, 234, 0.3);
+  border-radius: 8px;
+  margin: auto;
+  display: block;
+}
+
+/* Resources page */
+.resource-list {
+  list-style: none;
+  margin-left: 0;
+}
+
+.resource-list li {
+  padding: 1.25rem;
+  background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
+  border-radius: 12px;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.resource-list li:hover {
+  transform: translateX(8px);
+  background: linear-gradient(135deg, #fff 0%, #f7fafc 100%);
+  box-shadow: 0 4px 20px rgba(102, 126, 234, 0.15);
+  border-color: rgba(102, 126, 234, 0.3);
+}
+
+.resource-list li::before {
+  content: "📄";
+  font-size: 1.75rem;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+}
+
+@media (max-width: 768px) {
+  body {
+    padding: 0.5rem;
+  }
+
+  .container {
+    padding: 1.5rem;
+    border-radius: 16px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  nav {
+    justify-content: center;
+  }
+
+  nav a {
+    margin-right: 0.5rem;
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+  }
+
+  .author-section {
+    flex-direction: column;
+  }
+
+  .author-photo {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection styling */
+::selection {
+  background-color: #667eea;
+  color: white;
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="papers.html" style="font-weight:bold">Papers</a>
+      <a href="resume.html">Resume</a>
+      <a href="photos.html">Photos</a>
+    </nav>
+    <h1>Filip&#39;s Papers (and Slides)</h1>
+
+<p>This page has links to some of my published work. Most of my recent work is published on
+the blogs, while my older work was published in traditional academic things.</p>
+
+<ol>
+  <li>F. Pizlo. <em>How To Make a Fast Dynamic Language Interpreter</em>. Apr 2026. <a href="https://zef-lang.dev/implementation">https://zef-lang.dev/implementation</a></li>
+  <li>F. Pizlo. <em>The Fil-C Manifesto: Garbage In, Memory Safety Out!</em> GitHub, Apr 2024. <a href="https://github.com/pizlonator/fil-c/blob/deluge/Manifesto.md">https://github.com/pizlonator/fil-c/blob/deluge/Manifesto.md</a>. <em>This was followed by many more Fil-C posts, which can be found on <a href="https://fil-c.org/">https://fil-c.org/</a>.</em></li>
+  <li>F. Pizlo. <em>Bringing Verse Transactional Memory Semantics to C++</em>. Unreal Engine Blog, Mar 2024. <a href="https://tinyurl.com/3ymxa8n5">https://tinyurl.com/3ymxa8n5</a>.</li>
+  <li>F. Pizlo. <em>Speculation in JavaScriptCore</em>. WebKit Blog, July 2020. <a href="https://webkit.org/blog/10308/">https://webkit.org/blog/10308/</a></li>
+  <li>F. Pizlo. <em>Speculation in JavaScriptCore</em>. Invited lecture. <a href="resources/pizlo-speculation-in-jsc-slides.pdf">slides PDF</a> <a href="resources/pizlo-speculation-in-jsc-slides.key">slides Keynote</a></li>
+  <li>F. Pizlo. <em>All About JavaScriptCore&#39;s Many Compilers</em>. Invited talk at SPLASH 2018. <a href="resources/pizlo-splash2018-jsc-compiler-slides.pdf">slides PDF</a> <a href="resources/pizlo-splash2018-jsc-compiler-slides.key">slides Keynote</a></li>
+  <li>F. Pizlo. <em>Inline Caching in JavaScriptCore</em>. Keynote at ICOOOLPS 2018. <a href="resources/pizlo-icooolps2018-inline-caches-slides.pdf">slides PDF</a> <a href="resources/pizlo-icooolps2018-inline-caches-slides.key">slides Keynote</a></li>
+  <li>F. Pizlo. <em>What Spectre And Meltdown Mean For WebKit</em>. WebKit Blog, Jan 2018. <a href="https://webkit.org/blog/8048/">https://webkit.org/blog/8048/</a></li>
+  <li>F. Pizlo. <em>The JavaScriptCore Virtual Machine</em>. Joint keynote at DLS 2017 and VMIL 2017. <a href="resources/pizlo-dls2017-vmil2017-jscvm-slides.pdf">slides PDF</a> <a href="resources/pizlo-dls2017-vmil2017-jscvm-slides.key">slides Keynote</a></li>
+  <li>F. Pizlo. <em>Concurrent JavaScript: It can work!</em> WebKit Blog, Aug 2017. <a href="https://webkit.org/blog/7846/">https://webkit.org/blog/7846/</a></li>
+  <li>F. Pizlo. <em>Real World Garbage Collection</em>. Lecture at ECOOP 2017 summer school. <a href="resources/pizlo-ecoop2017-real-world-gc.zip">slides</a></li>
+  <li>S. Barati, Y. Suzuki, F. Pizlo. <em>JSC loves ES6</em>. WebKit Blog, June 2017. <a href="https://webkit.org/blog/7536/">https://webkit.org/blog/7536/</a></li>
+  <li>F. Pizlo. <em>Introducing Riptide: WebKit&#39;s Retreating Wavefront Concurrent Garbage Collector</em>. WebKit Blog, January 2017. <a href="https://webkit.org/blog/7122/">https://webkit.org/blog/7122/</a></li>
+  <li>F. Pizlo. <em>Locking in WebKit</em>. WebKit Blog, May 2016. <a href="https://webkit.org/blog/6161/">https://webkit.org/blog/6161/</a></li>
+  <li>F. Pizlo. <em>Introducing the B3 JIT Compiler</em>. WebKit Blog, February 2016. <a href="https://webkit.org/blog/5852/">https://webkit.org/blog/5852/</a></li>
+  <li>F. Pizlo. <em>Announcing JetStream 1.1</em>. WebKit Blog, July 2015. <a href="https://webkit.org/blog/3611/">https://webkit.org/blog/3611/</a></li>
+  <li>F. Pizlo. <em>Introducing the JetStream benchmark suite</em>. Surfin&#39; Safari blog, June 2014. <a href="https://webkit.org/blog/3418/">https://webkit.org/blog/3418/</a></li>
+  <li>F. Pizlo. <em>Introducing the WebKit FTL JIT</em>. Surfin&#39; Safari blog, May 2014. <a href="https://webkit.org/blog/3362/">https://webkit.org/blog/3362/</a></li>
+  <li>F. Pizlo. <em>Announcing SunSpider 1.0</em>. Surfin&#39; Safari blog, April 2013. <a href="https://webkit.org/blog/2364/">https://webkit.org/blog/2364/</a></li>
+  <li>F. Pizlo, D. Frampton, A. L. Hosking. <em>Fine-grained Adaptive Biased Locking.</em> In Principles and Practice of Programming in Java (PPPJ) 2011. <a href="resources/pizlo-pppj2011-fable.pdf">paper</a></li>
+  <li>F. Pizlo, L. Ziarek, P. Maj, A. L. Hosking, E. Blanton, J. Vitek. <em>Schism: Fragmentation-Tolerant Real-Time Garbage Collection.</em> In ACM SIGPLAN 2010 Conference on Programming Language Design and Implementation (PLDI 2010). <a href="resources/pizlo-pldi2010-schism.pdf">paper</a> <a href="resources/pizlo-pldi2010-schism-slides.pdf">slides</a> <a href="resources/pizlo-pldi2010-schism-slides.key">slides Keynote</a></li>
+  <li>F. Pizlo, L. Ziarek, E. Blanton, P. Maj, J. Vitek. <em>High-level Programming of Embedded Hard Real-Time Devices.</em> In the ACM SIGOPS 2010 EuroSys Conference (EuroSys 2010). <a href="resources/pizlo-eurosys2010-fijivm.pdf">paper</a></li>
+  <li>T. Kalibera, F. Pizlo, A. L. Hosking, J. Vitek. <em>Scheduling Hard Real-Time Garbage Collection.</em> IEEE Real-Time Systems Symposium 2009: 81-92. <a href="resources/kalibera-rtss2009-minuteman.pdf">paper</a></li>
+  <li>F. Pizlo, L. Ziarek, J. Vitek. <em>Real time Java on resource-constrained platforms with Fiji VM.</em> JTRES 2009: 110-119. <a href="resources/pizlo-jtres2009-fijivm.pdf">paper</a></li>
+  <li>T. Kalibera, J. Hagelberg, F. Pizlo, A. Plsek, B. Titzer, J. Vitek. <em>CDx: a family of real-time Java benchmarks.</em> JTRES 2009: 41-50. <a href="resources/kalibera-jtres2009-cdx.pdf">paper</a></li>
+  <li>T. Wrigstad, F. Pizlo, F. Meawad, L. Zhao, J. Vitek. <em>Loci: Simple Thread-Locality for Java.</em> In the 2009 European Conference on Object-Oriented Programming (ECOOP 2009). <a href="resources/wrigstad-ecoop2009-loci.pdf">paper</a></li>
+  <li>J. Baker, A. Cunei, T. Kalibera, F. Pizlo, J. Vitek. <em>Accurate Garbage Collection in Uncooperative Environments.</em> Concurrency and Computation: Practice and Experience, 2008. <a href="resources/baker-ccpe09-accurate.pdf">paper</a></li>
+  <li>F. Pizlo, E. Petrank, B. Steensgaard. <em>Path Specialization: Reducing Phased Execution Overheads.</em> In The 2008 International Symposium on Memory Management (ISMM 2008). <a href="resources/pizlo-ismm2008-pathspec.pdf">paper</a> <a href="resources/pizlo-ismm2008-pathspec-slides.pdf">slides</a></li>
+  <li>F. Pizlo, E. Petrank, B. Steensgaard. <em>A Study of Concurrent Real-time Garbage Collectors.</em> In the ACM SIGPLAN 2008 Conference on Programming Language Design and Implementation (PLDI 2008). <a href="resources/pizlo-pldi2008-study.pdf">paper</a> <a href="resources/pizlo-pldi2008-study-slides.pdf">slides</a></li>
+  <li>F. Pizlo, D. Frampton, E. Petrank, B. Steensgaard. <em>Stopless: A Real-Time Garbage Collector for Modern Platforms.</em> In The 2007 International Symposium on Memory Management (ISMM 2007), October 2007. <a href="resources/pizlo-ismm2007-stopless.pdf">paper</a></li>
+  <li>F. Pizlo, A. Hosking, J. Vitek. <em>Hierarchical Real-time Garbage Collection</em>. In the ACM SIGPLAN/SIGBED Conference on Languages, Compilers, and Tools for Embedded Systems (LCTES&#39;07), held in San Diego as part of the Federated Computing Research Conference (FCRC&#39;07). <a href="resources/pizlo-lctes2007-hrtgc.pdf">paper</a> <a href="resources/pizlo-lctes2007-hrtgc-slides.pdf">slides</a></li>
+  <li>J. Spring, F. Pizlo, R. Guerraoui, J. Vitek. <em>Reflexes: Programming Abstractions for Highly Responsive Systems</em>. In the 2007 ACM International Conference on Virtual Execution Environments (VEE&#39;07), held in San Diego as part of the Federated Computing Research Conference (FCRC&#39;07). <a href="resources/spring-vee2007-reflex.pdf">paper</a></li>
+  <li>J. Baker, A. Cunei, F. Pizlo, J. Vitek. <em>Accurate Garbage Collection in Uncooperative Environments with Lazy Pointer Stacks</em>. In Compiler Construction, 16th International Conference, CC 2007, Held as Part of the Joint European Conferences on Theory and Practice of Software, ETAPS 2007. <a href="resources/baker-cc2007-accurate.pdf">paper</a> <a href="resources/baker-cc2007-accurate-slides.pdf">slides</a></li>
+  <li>A. Armbuster, J. Baker, A. Cunei, C. Flack, D. Holmes, F. Pizlo, E. Pla, M. Prochazka, J. Vitek. <em>A Real-Time Java Virtual Machine with Applications in Avionics.</em> In ACM Transactions in Embedded Computing Systems (TECS), 2006. <a href="resources/armbuster-tecs2006-ovm.pdf">paper</a></li>
+  <li>F. Pizlo, J. Vitek. <em>An Empirical Evaluation of Memory Management Alternatives for Real-time Java.</em> In Proceedings of the 27th IEEE Real-Time Systems Symposium (RTSS), December 2006. <a href="resources/pizlo-rtss2006-empirical.pdf">paper</a> <a href="resources/pizlo-rtss2006-empirical-slides.pdf">slides</a></li>
+  <li>J. Baker, A. Cunei, C. Flack, F. Pizlo, M. Prochazka, J. Vitek, A. Armbuster, E. Pla, D. Holmes. <em>Real-time Java in Avionics Applications.</em> In Proceedings of the 12th IEEE Real-Time and Embedded Technology and Applications Symposium (RTAS), 2006. <a href="resources/baker-rtas2006-ovm.pdf">paper</a></li>
+  <li>F. Pizlo. <em>First in, first out memory.</em> Presented at The 3rd Workshop on Java Technologies for Real-time and Embedded Systems, October 2005.</li>
+  <li>F. Pizlo, J. Fox, D. Holmes, J. Vitek. <em>Real-time Java scoped memory: design patterns, semantics.</em> In Proceedings of the IEEE International Symposium on Object-oriented Real-Time Distributed Computing (ISORC04), pp 101112, Vienna, Austria, May 2004. <a href="resources/pizlo-isorc2004-scopes.pdf">paper</a></li>
+</ol>
+  </div>
+  
+</body>
+</html>
