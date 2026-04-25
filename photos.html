@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Photos</title>
+  <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: #f5f5f5;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: white;
+  min-height: 100vh;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+nav {
+  border-bottom: 2px solid #eee;
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+
+nav a {
+  color: #333;
+  text-decoration: none;
+  margin-right: 2rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+nav a:hover {
+  color: #007acc;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: #222;
+}
+
+h2 {
+  font-size: 2rem;
+  margin: 2rem 0 1rem;
+  color: #333;
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin: 1.5rem 0 0.75rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  line-height: 1.8;
+}
+
+a {
+  color: #007acc;
+}
+
+ul, ol {
+  margin: 1rem 0 1rem 2rem;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+code {
+  background: #f4f4f4;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-family: 'Monaco', 'Menlo', monospace;
+  font-size: 0.9em;
+}
+
+pre {
+  background: #2d2d2d;
+  color: #f8f8f2;
+  padding: 1rem;
+  border-radius: 5px;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+}
+
+blockquote {
+  border-left: 4px solid #007acc;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  color: #666;
+  font-style: italic;
+}
+
+hr {
+  border: none;
+  border-top: 2px solid #eee;
+  margin: 2rem 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Index page with author photo */
+.author-section {
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.author-photo {
+  flex: 0 0 450px;
+}
+
+.author-photo img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.author-content {
+  flex: 1;
+  min-width: 300px;
+}
+
+/* Photo gallery */
+.gallery-header {
+  margin-bottom: 2rem;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.gallery-item {
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  aspect-ratio: 4/3;
+  background: #ddd;
+}
+
+.gallery-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+/* Lightbox */
+.lightbox {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.95);
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.lightbox.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox img {
+  max-width: 95%;
+  max-height: 95%;
+  object-fit: contain;
+  box-shadow: 0 0 40px rgba(0,0,0,0.5);
+}
+
+/* Resources page */
+.resource-list {
+  list-style: none;
+  margin-left: 0;
+}
+
+.resource-list li {
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.resource-list li::before {
+  content: "📄";
+  font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .author-section {
+    flex-direction: column;
+  }
+
+  .author-photo {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  nav a {
+    margin-right: 1rem;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="resume.html">Resume</a>
+      <a href="photos.html" style="font-weight:bold">Photos</a>
+    </nav>
+    <h1>Filip&#39;s Photography</h1>
+
+<p>I like to take pictures. Here are some of my favorites.</p>
+<div class="gallery-grid">
+  <div class="gallery-item" data-index="0" onclick="openLightbox(0)">
+    <img src="images/395-thumb-1x.jpg"
+         srcset="images/395-thumb-1x.jpg 1x, images/395-thumb-2x.jpg 2x"
+         alt="395" loading="lazy">
+  </div>
+  <div class="gallery-item" data-index="1" onclick="openLightbox(1)">
+    <img src="images/arizona-thumb-1x.jpg"
+         srcset="images/arizona-thumb-1x.jpg 1x, images/arizona-thumb-2x.jpg 2x"
+         alt="arizona" loading="lazy">
+  </div>
+  <div class="gallery-item" data-index="2" onclick="openLightbox(2)">
+    <img src="images/bike-thumb-1x.jpg"
+         srcset="images/bike-thumb-1x.jpg 1x, images/bike-thumb-2x.jpg 2x"
+         alt="bike" loading="lazy">
+  </div>
+  <div class="gallery-item" data-index="3" onclick="openLightbox(3)">
+    <img src="images/bike2-thumb-1x.jpg"
+         srcset="images/bike2-thumb-1x.jpg 1x, images/bike2-thumb-2x.jpg 2x"
+         alt="bike2" loading="lazy">
+  </div>
+  <div class="gallery-item" data-index="4" onclick="openLightbox(4)">
+    <img src="images/capitolabeach-thumb-1x.jpg"
+         srcset="images/capitolabeach-thumb-1x.jpg 1x, images/capitolabeach-thumb-2x.jpg 2x"
+         alt="capitolabeach" loading="lazy">
+  </div>
+  <div class="gallery-item" data-index="5" onclick="openLightbox(5)">
+    <img src="images/cat-thumb-1x.jpg"
+         srcset="images/cat-thumb-1x.jpg 1x, images/cat-thumb-2x.jpg 2x"
+         alt="cat" loading="lazy">
+  </div>
+  <div class="gallery-item" data-index="6" onclick="openLightbox(6)">
+    <img src="images/chair-thumb-1x.jpg"
+         srcset="images/chair-thumb-1x.jpg 1x, images/chair-thumb-2x.jpg 2x"
+         alt="chair" loading="lazy">
+  </div>
+  <div class="gallery-item" data-index="7" onclick="openLightbox(7)">
+    <img src="images/cradle-thumb-1x.jpg"
+         srcset="images/cradle-thumb-1x.jpg 1x, images/cradle-thumb-2x.jpg 2x"
+         alt="cradle" loading="lazy">
+  </div>
+  <div class="gallery-item" data-index="8" onclick="openLightbox(8)">
+    <img src="images/cross-thumb-1x.jpg"
+         srcset="images/cross-thumb-1x.jpg 1x, images/cross-thumb-2x.jpg 2x"
+         alt="cross" loading="lazy">
+  </div>
+  <div class="gallery-item" data-index="9" onclick="openLightbox(9)">
+    <img src="images/door-thumb-1x.jpg"
+         srcset="images/door-thumb-1x.jpg 1x, images/door-thumb-2x.jpg 2x"
+         alt="door" loading="lazy">
+  </div>
+  <div class="gallery-item" data-index="10" onclick="openLightbox(10)">
+    <img src="images/indiana1-thumb-1x.jpg"
+         srcset="images/indiana1-thumb-1x.jpg 1x, images/indiana1-thumb-2x.jpg 2x"
+         alt="indiana1" loading="lazy">
+  </div>
+  <div class="gallery-item" data-index="11" onclick="openLightbox(11)">
+    <img src="images/indiana2-thumb-1x.jpg"
+         srcset="images/indiana2-thumb-1x.jpg 1x, images/indiana2-thumb-2x.jpg 2x"
+         alt="indiana2" loading="lazy">
+  </div>
+  <div class="gallery-item" data-index="12" onclick="openLightbox(12)">
+    <img src="images/kansas-thumb-1x.jpg"
+         srcset="images/kansas-thumb-1x.jpg 1x, images/kansas-thumb-2x.jpg 2x"
+         alt="kansas" loading="lazy">
+  </div>
+  <div class="gallery-item" data-index="13" onclick="openLightbox(13)">
+    <img src="images/lafayette-thumb-1x.jpg"
+         srcset="images/lafayette-thumb-1x.jpg 1x, images/lafayette-thumb-2x.jpg 2x"
+         alt="lafayette" loading="lazy">
+  </div>
+  <div class="gallery-item" data-index="14" onclick="openLightbox(14)">
+    <img src="images/leblon-thumb-1x.jpg"
+         srcset="images/leblon-thumb-1x.jpg 1x, images/leblon-thumb-2x.jpg 2x"
+         alt="leblon" loading="lazy">
+  </div>
+  <div class="gallery-item" data-index="15" onclick="openLightbox(15)">
+    <img src="images/pike-thumb-1x.jpg"
+         srcset="images/pike-thumb-1x.jpg 1x, images/pike-thumb-2x.jpg 2x"
+         alt="pike" loading="lazy">
+  </div>
+  <div class="gallery-item" data-index="16" onclick="openLightbox(16)">
+    <img src="images/purdue-thumb-1x.jpg"
+         srcset="images/purdue-thumb-1x.jpg 1x, images/purdue-thumb-2x.jpg 2x"
+         alt="purdue" loading="lazy">
+  </div>
+  <div class="gallery-item" data-index="17" onclick="openLightbox(17)">
+    <img src="images/seattle-thumb-1x.jpg"
+         srcset="images/seattle-thumb-1x.jpg 1x, images/seattle-thumb-2x.jpg 2x"
+         alt="seattle" loading="lazy">
+  </div>
+  <div class="gallery-item" data-index="18" onclick="openLightbox(18)">
+    <img src="images/spiritquest-thumb-1x.jpg"
+         srcset="images/spiritquest-thumb-1x.jpg 1x, images/spiritquest-thumb-2x.jpg 2x"
+         alt="spiritquest" loading="lazy">
+  </div>
+  <div class="gallery-item" data-index="19" onclick="openLightbox(19)">
+    <img src="images/whipple-thumb-1x.jpg"
+         srcset="images/whipple-thumb-1x.jpg 1x, images/whipple-thumb-2x.jpg 2x"
+         alt="whipple" loading="lazy">
+  </div>
+  <div class="gallery-item" data-index="20" onclick="openLightbox(20)">
+    <img src="images/whipple2-thumb-1x.jpg"
+         srcset="images/whipple2-thumb-1x.jpg 1x, images/whipple2-thumb-2x.jpg 2x"
+         alt="whipple2" loading="lazy">
+  </div>
+  <div class="gallery-item" data-index="21" onclick="openLightbox(21)">
+    <img src="images/windowsxp-thumb-1x.jpg"
+         srcset="images/windowsxp-thumb-1x.jpg 1x, images/windowsxp-thumb-2x.jpg 2x"
+         alt="windowsxp" loading="lazy">
+  </div>
+  <div class="gallery-item" data-index="22" onclick="openLightbox(22)">
+    <img src="images/wood-thumb-1x.jpg"
+         srcset="images/wood-thumb-1x.jpg 1x, images/wood-thumb-2x.jpg 2x"
+         alt="wood" loading="lazy">
+  </div>
+  <div class="gallery-item" data-index="23" onclick="openLightbox(23)">
+    <img src="images/wood2-thumb-1x.jpg"
+         srcset="images/wood2-thumb-1x.jpg 1x, images/wood2-thumb-2x.jpg 2x"
+         alt="wood2" loading="lazy">
+  </div>
+</div>
+<div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
+  <img id="lightbox-img" src="" alt="">
+</div>
+  </div>
+  <script>
+const photos = ['395', 'arizona', 'bike', 'bike2', 'capitolabeach', 'cat', 'chair', 'cradle', 'cross', 'door', 'indiana1', 'indiana2', 'kansas', 'lafayette', 'leblon', 'pike', 'purdue', 'seattle', 'spiritquest', 'whipple', 'whipple2', 'windowsxp', 'wood', 'wood2'];
+let currentIndex = 0;
+
+function openLightbox(index) {
+  currentIndex = index;
+  const lightbox = document.getElementById('lightbox');
+  const img = document.getElementById('lightbox-img');
+  
+  // Get appropriate image based on screen size
+  const pixelRatio = window.devicePixelRatio || 1;
+  let scale = '1x';
+  if (pixelRatio >= 2) scale = '2x';
+  
+  img.src = 'images/' + photos[currentIndex] + '-' + scale + '.jpg';
+  lightbox.classList.add('active');
+  document.body.style.overflow = 'hidden';
+  
+  // Preload adjacent images
+  preloadImage(currentIndex - 1);
+  preloadImage(currentIndex + 1);
+}
+
+function preloadImage(index) {
+  if (index < 0 || index >= photos.length) return;
+  const img = new Image();
+  img.src = 'images/' + photos[index] + '-2x.jpg';
+}
+
+function closeLightbox(event) {
+  // Close on any click (since onclick is on lightbox container, all clicks bubble up)
+  // or on keyboard events (Escape key)
+  if (!event || event.type === 'click' || event.type === 'keydown') {
+    const lightbox = document.getElementById('lightbox');
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+}
+
+function showNext() {
+  currentIndex = (currentIndex + 1) % photos.length;
+  openLightbox(currentIndex);
+}
+
+function showPrev() {
+  currentIndex = (currentIndex - 1 + photos.length) % photos.length;
+  openLightbox(currentIndex);
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', function(e) {
+  const lightbox = document.getElementById('lightbox');
+  if (!lightbox.classList.contains('active')) return;
+  
+  if (e.key === 'Escape') {
+    closeLightbox(e);
+  } else if (e.key === 'ArrowRight') {
+    showNext();
+  } else if (e.key === 'ArrowLeft') {
+    showPrev();
+  }
+});
+
+// Swipe detection
+let touchStartX = 0;
+let touchEndX = 0;
+
+document.getElementById('lightbox').addEventListener('touchstart', function(e) {
+  touchStartX = e.changedTouches[0].screenX;
+}, false);
+
+document.getElementById('lightbox').addEventListener('touchend', function(e) {
+  touchEndX = e.changedTouches[0].screenX;
+  handleSwipe();
+}, false);
+
+function handleSwipe() {
+  const swipeThreshold = 50;
+  const diff = touchStartX - touchEndX;
+  
+  if (Math.abs(diff) > swipeThreshold) {
+    if (diff > 0) {
+      showNext();
+    } else {
+      showPrev();
+    }
+  }
+}
+</script>
+
+</body>
+</html>

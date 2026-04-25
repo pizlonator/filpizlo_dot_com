@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume</title>
+  <style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: #f5f5f5;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: white;
+  min-height: 100vh;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+nav {
+  border-bottom: 2px solid #eee;
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+
+nav a {
+  color: #333;
+  text-decoration: none;
+  margin-right: 2rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+nav a:hover {
+  color: #007acc;
+}
+
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: #222;
+}
+
+h2 {
+  font-size: 2rem;
+  margin: 2rem 0 1rem;
+  color: #333;
+}
+
+h3 {
+  font-size: 1.5rem;
+  margin: 1.5rem 0 0.75rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  line-height: 1.8;
+}
+
+a {
+  color: #007acc;
+}
+
+ul, ol {
+  margin: 1rem 0 1rem 2rem;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+code {
+  background: #f4f4f4;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-family: 'Monaco', 'Menlo', monospace;
+  font-size: 0.9em;
+}
+
+pre {
+  background: #2d2d2d;
+  color: #f8f8f2;
+  padding: 1rem;
+  border-radius: 5px;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+}
+
+blockquote {
+  border-left: 4px solid #007acc;
+  padding-left: 1rem;
+  margin: 1rem 0;
+  color: #666;
+  font-style: italic;
+}
+
+hr {
+  border: none;
+  border-top: 2px solid #eee;
+  margin: 2rem 0;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Index page with author photo */
+.author-section {
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.author-photo {
+  flex: 0 0 450px;
+}
+
+.author-photo img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.author-content {
+  flex: 1;
+  min-width: 300px;
+}
+
+/* Photo gallery */
+.gallery-header {
+  margin-bottom: 2rem;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.gallery-item {
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  aspect-ratio: 4/3;
+  background: #ddd;
+}
+
+.gallery-item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.gallery-item:hover img {
+  transform: scale(1.05);
+}
+
+/* Lightbox */
+.lightbox {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.95);
+  z-index: 1000;
+  cursor: pointer;
+}
+
+.lightbox.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox img {
+  max-width: 95%;
+  max-height: 95%;
+  object-fit: contain;
+  box-shadow: 0 0 40px rgba(0,0,0,0.5);
+}
+
+/* Resources page */
+.resource-list {
+  list-style: none;
+  margin-left: 0;
+}
+
+.resource-list li {
+  padding: 1rem;
+  background: #f9f9f9;
+  border-radius: 5px;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.resource-list li::before {
+  content: "📄";
+  font-size: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .author-section {
+    flex-direction: column;
+  }
+
+  .author-photo {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  nav a {
+    margin-right: 1rem;
+  }
+}
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="resume.html" style="font-weight:bold">Resume</a>
+      <a href="photos.html">Photos</a>
+    </nav>
+    <h1>Filip Jerzy Pizło</h1>
+
+<h3>Résumé</h3>
+
+<p><a href="resources/FilipPizloResume.pdf">Resume as a PDF</a></p>
+
+<hr>
+
+<h2>Summary</h2>
+
+<p>Virtual machine architect, programming language implementer, systems programmer, and software engineering manager. I specialize in architecting and maintaining high-performance implementations of high-level programming languages.</p>
+
+<h2>Key Accomplishments</h2>
+
+<ul>
+  <li>Inventor of Fil-C, a fully memory safe version of C and C++ based on real-time garbage collection and monotonic capabilities. Fil-C can run WebKit, CPython, SQLite, OpenSSH, and other significant pieces of C and C++ code. Lots of C and C++ code compiles with Fil-C with zero changes. All memory safety violations are caught as Fil-C panics.</li>
+</ul>
+<ul>
+  <li>One of the top contributors to the WebKit open source browser engine, which is used in a bunch of Apple&#39;s products. I mostly worked on WebKit&#39;s JavaScript VM (virtual machine), called JSC (JavaScriptCore). Contributed many JSC features, like the low-level interpreter, the FTL JIT (faster-than-light just-in-time) compiler, the B3 (bare bones backend) compiler, the ShadowChicken tail debugging aid, the Riptide GC (garbage collector), libpas (the new malloc) and a lot of the type inference infrastructure. I was the architect behind JSC&#39;s dynamic many-JIT design.</li>
+</ul>
+<ul>
+  <li>Long record of contributing to programming language runtimes and compilers, including Purdue OpenVM, Microsoft Bartok Research Compiler, Jikes RVM, Fiji VM, WebKit, LLVM, and UEFN (Unreal Editor for Fortnite). I was on the core team of OpenVM and Jikes RVM. I wrote most of Fiji VM. I&#39;m a WebKit reviewer. I managed the UEFN Verse VM team. I created the Zef programming language as a side quest for the love of the game. I now manage the Luau team at Roblox.</li>
+</ul>
+<h2>Summary of Qualifications</h2>
+
+<ul>
+  <li>Expert C and C++ programmer. I love both!</li>
+  <li>Expert assembly programmer. I&#39;m especially good at x86 and arm.</li>
+  <li>Expert GC developer.</li>
+  <li>Expert malloc developer.</li>
+  <li>Expert compiler developer.</li>
+  <li>Programming language implementation expert.</li>
+  <li>Concurrency expert.</li>
+</ul>
+<h2>Job Experience</h2>
+
+<p><strong>Roblox Corporation</strong> San Mateo, CA. <em>April 2026 — present.</em> <em>Director of Programmability and Data Model.</em> Manager of the teams that develop the Luau language and its implementation, the programming model used by Roblox creators, and the engine data model.</p>
+
+<p><strong>Epic Games, Inc.</strong> San Francisco, CA. <em>February 2022 — April 2026.</em> <em>Senior Director of Language Engineering.</em> Manager of the team that developed the compiler and runtime for the Verse programming language. Verse is a new functional logic programming language for the metaverse, which ships as part of UEFN. Helped design language features. Helped with UEFN security strategy. Designed the AutoRTFM transactional memory system for C++. Wrote parts of the next-generation Verse VM.</p>
+
+<p><strong>Apple Inc.</strong> Cupertino, CA. <em>February 2017 — February 2022.</em> <em>Manager of the JavaScriptCore team.</em> JSC is the scripting component of the WebKit open source browser engine. Apple ships JSC and WebKit as system frameworks, which are used by apps like Safari, Mail, and many others for running scripts and rendering web content. The JSC team is responsible for all of JSC except the developer tools. I wrote code in addition to line management responsibilities.</p>
+
+<p><strong>Apple Inc.</strong> Cupertino, CA. <em>June 2011 — January 2017.</em> <em>Senior software engineer on the JavaScriptCore team.</em> My job was to contribute code to the JSC component of the WebKit open source project, with a focus on performance. By the time I was promoted to management, JSC was in the lead on all major JavaScript benchmarks (SunSpider, Octane, JetStream, Kraken, JSBench, others). I contributed to every Safari release since Safari 5.1.1, every macOS release since Mountain Lion, and every iOS release since iOS 6. Also made minor contributions to watchOS 2.</p>
+
+<p><strong>Fiji Systems, Inc.</strong> Indianapolis, IN. <em>May 2009 — August 2010.</em> <em>Founder and CEO.</em> Developed the Fiji VM and the Schism/cmr fragmentation-tolerant real-time garbage collector.</p>
+
+<p><strong>Microsoft Research</strong> Redmond, WA. <em>November 2006 — March 2007, June 2007 — August 2007.</em> <em>Research intern.</em> Invented three concurrent copying garbage collectors: Stopless, Clover, and Chicken.</p>
+
+<p><strong>IBM Research</strong> Hawthorne, NY. <em>June 2004 — August 2004.</em> <em>Research intern.</em> Worked on the X10 programming language.</p>
+
+<h2>Education</h2>
+
+<p><strong>Purdue University</strong> West Lafayette, IN. <em>Jan 2004 — May 2011.</em> PhD dropout. Worked towards a PhD dissertation on <em>Fragmentation Tolerant Hard Real Time Garbage Collection</em>. Did research in many areas, including real-time systems, garbage collection, compilers, locking algorithms, and programming languages. All of this work was done in the context of virtual machines. During this time, I also did astrophysics research on the side through my involvement in the VERITAS (Very Energetic Radiation Imaging Telescope Array System) telescope. I dropped out of graduate school after completing the qualifying and preliminary exams.</p>
+
+<p><strong>Purdue University</strong> West Lafayette, IN. <em>Aug 1999 — Dec 2003.</em> B.S. in Computer Science and Math.</p>
+
+<h2>Blog Posts</h2>
+
+<ol>
+  <li>F. Pizlo. <em>How To Make a Fast Dynamic Language Interpreter</em>. Apr 2026. <a href="https://zef-lang.dev/implementation">https://zef-lang.dev/implementation</a></li>
+  <li>F. Pizlo. <em>The Fil-C Manifesto: Garbage In, Memory Safety Out!</em> GitHub, Apr 2024. <a href="https://github.com/pizlonator/fil-c/blob/deluge/Manifesto.md">https://github.com/pizlonator/fil-c/blob/deluge/Manifesto.md</a>. <em>This was followed by many more Fil-C posts, which can be found on <a href="https://fil-c.org/">https://fil-c.org/</a>.</em></li>
+  <li>F. Pizlo. <em>Bringing Verse Transactional Memory Semantics to C++</em>. Unreal Engine Blog, Mar 2024. <a href="https://tinyurl.com/3ymxa8n5">https://tinyurl.com/3ymxa8n5</a>.</li>
+  <li>F. Pizlo. <em>Speculation in JavaScriptCore</em>. WebKit Blog, July 2020. <a href="https://webkit.org/blog/10308/">https://webkit.org/blog/10308/</a></li>
+  <li>F. Pizlo. <em>What Spectre And Meltdown Mean For WebKit</em>. WebKit Blog, Jan 2018. <a href="https://webkit.org/blog/8048/">https://webkit.org/blog/8048/</a></li>
+  <li>F. Pizlo. <em>Concurrent JavaScript: It can work!</em> WebKit Blog, Aug 2017. <a href="https://webkit.org/blog/7846/">https://webkit.org/blog/7846/</a></li>
+  <li>S. Barati, Y. Suzuki, F. Pizlo. <em>JSC loves ES6</em>. WebKit Blog, June 2017. <a href="https://webkit.org/blog/7536/">https://webkit.org/blog/7536/</a></li>
+  <li>F. Pizlo. <em>Introducing Riptide: WebKit&#39;s Retreating Wavefront Concurrent Garbage Collector</em>. WebKit Blog, January 2017. <a href="https://webkit.org/blog/7122/">https://webkit.org/blog/7122/</a></li>
+  <li>F. Pizlo. <em>Locking in WebKit</em>. WebKit Blog, May 2016. <a href="https://webkit.org/blog/6161/">https://webkit.org/blog/6161/</a></li>
+  <li>F. Pizlo. <em>Introducing the B3 JIT Compiler</em>. WebKit Blog, February 2016. <a href="https://webkit.org/blog/5852/">https://webkit.org/blog/5852/</a></li>
+  <li>F. Pizlo. <em>Announcing JetStream 1.1</em>. WebKit Blog, July 2015. <a href="https://webkit.org/blog/3611/">https://webkit.org/blog/3611/</a></li>
+  <li>F. Pizlo. <em>Introducing the JetStream benchmark suite</em>. Surfin&#39; Safari blog, June 2014. <a href="https://webkit.org/blog/3418/">https://webkit.org/blog/3418/</a></li>
+  <li>F. Pizlo. <em>Introducing the WebKit FTL JIT</em>. Surfin&#39; Safari blog, May 2014. <a href="https://webkit.org/blog/3362/">https://webkit.org/blog/3362/</a></li>
+  <li>F. Pizlo. <em>Announcing SunSpider 1.0</em>. Surfin&#39; Safari blog, April 2013. <a href="https://webkit.org/blog/2364/">https://webkit.org/blog/2364/</a></li>
+</ol>
+<h2>Software Artifacts</h2>
+
+<p><strong>Zef.</strong> Scripting language with closures and object oriented features. Developed mostly to demonstrate programming language implementation technique. <a href="https://zef-lang.dev/">https://zef-lang.dev/</a></p>
+
+<p><strong>Yosh.</strong> LLM-enabled memory safe fork of Bash (Bourne Again Shell). Makes it easy to get LLM help in the middle of your shell session. Works with Anthropic, OpenAI, and Kimi APIs. <a href="https://yoshell.ai/">https://yoshell.ai/</a></p>
+
+<p><strong>Fil-C.</strong> Memory-safe version of C and C++. Lots of major software compiles in Fil-C without any changes. Catches all memory safety issues in C. The Fil-C implementation comprises a modified version of clang and a new runtime. The runtime includes a novel concurrent real-time garbage collector called FUGC (Fil&#39;s Unbelievable Garbage Collector). The compiler changes include a new LLVM pass, FilPizlonator, that introduces memory safety at the LLVM IR level. This is a personal spare-time project. <a href="https://fil-c.org/">https://fil-c.org/</a></p>
+
+<p><strong>UEFN.</strong> The Unreal Editor for Fortnite is Epic&#39;s take on the metaverse. It features a new programming language called Verse. I contributed a bunch of Verse compiler features and bugfixes. Helped design language features, like the constructor protocol (among others). Most of my involvement was as a manager but I also wrote a bunch of code, including the initial prototype of AutoRTFM - a transactional memory system for C++. <a href="https://store.epicgames.com/en-US/p/fortnite--uefn">https://store.epicgames.com/en-US/p/fortnite--uefn</a></p>
+
+<p><strong>WebKit.</strong> One of the top contributors with over 3,000 commits. I&#39;ve contributed to the JIT compilers, GC, malloc, bytecode infrastructure, runtime, inline caches, concurrency utilities, and many other components. I am the architect of WebKit&#39;s compiler pipeline. I wrote WebKit&#39;s locking infrastructure (WTF::Lock and friends). I wrote WebKit&#39;s concurrent garbage collector (called <em>Riptide</em>). <a href="http://www.webkit.org/">http://www.webkit.org/</a></p>
+
+<p><strong>LLVM.</strong> Former committer. Contributed MCJIT and C API improvements. Helped design the original patchpoint and stackmap intrinsics used by the LLVM-based WebKit FTL JIT. <a href="http://www.llvm.org/">http://www.llvm.org/</a></p>
+
+<p><strong>Fiji VM.</strong> Original developer. Wrote all of the compiler (including bytecode frontend, SSA-based IR, and x86 backend), runtime, and garbage collector from scratch.</p>
+
+<p><strong>Jikes RVM.</strong> Former core team member. Wrote the threading and locking implementation. <a href="http://www.jikesrvm.org/">http://www.jikesrvm.org/</a></p>
+
+<p><strong>Open VM.</strong> Former core developer. Wrote the real-time GC and the IO scheduler.</p>
+
+<p><strong>Microsoft Bartok Research Compiler.</strong> Intern. Wrote some real-time garbage collectors and some compiler optimizations and transformations for GC barriers.</p>
+
+<p><strong>VERITAS.</strong> Former research assistant. Wrote part of the data acquisition and data analysis. Designed the data format.</p>
+
+<h2>Publications</h2>
+
+<ol>
+  <li>T. Kalibera, J. Hagelberg, P. Maj, <strong>F. Pizlo</strong>, B. Titzer, J. Vitek. <em>A family of real-time Java benchmarks.</em> Concurrency and Computation: Practice and Experience 23(14): 1679-1700 (2011)</li>
+  <li>T. Kalibera, <strong>F. Pizlo</strong>, A. L. Hosking, J. Vitek. <em>Scheduling real-time garbage collection on uniprocessors.</em> ACM Trans. Comput. Syst. 29(3): 8 (2011)</li>
+  <li><strong>F. Pizlo</strong>, D. Frampton, A. L. Hosking. <em>Fine-grained Adaptive Biased Locking.</em> In Principles and Practice of Programming in Java (PPPJ) 2011.</li>
+  <li><strong>F. Pizlo</strong>, L. Ziarek, P. Maj, A. L. Hosking, E. Blanton, J. Vitek. <em>Schism: Fragmentation-Tolerant Real-Time Garbage Collection.</em> In ACM SIGPLAN 2010 Conference on Programming Language Design and Implementation (PLDI 2010).</li>
+  <li><strong>F. Pizlo</strong>, L. Ziarek, E. Blanton, P. Maj, J. Vitek. <em>High-level Programming of Embedded Hard Real-Time Devices.</em> In the ACM SIGOPS 2010 EuroSys Conference (EuroSys 2010).</li>
+  <li>J. Spring, <strong>F. Pizlo</strong>, J. Privat, R. Guerraoui, J. Vitek. <em>Reflexes: Abstractions for Integrating Highly Responsive Tasks into Java Applications.</em> ACM Transactions in Embedded Computing Systems (TECS), 2009.</li>
+  <li>T. Kalibera, <strong>F. Pizlo</strong>, A. L. Hosking, J. Vitek. <em>Scheduling Hard Real-Time Garbage Collection.</em> IEEE Real-Time Systems Symposium 2009: 81-92.</li>
+  <li><strong>F. Pizlo</strong>, L. Ziarek, J. Vitek. <em>Real time Java on resource-constrained platforms with Fiji VM.</em> JTRES 2009: 110-119.</li>
+  <li>T. Kalibera, J. Hagelberg, <strong>F. Pizlo</strong>, A. Plsek, B. Titzer, J. Vitek. <em>CDx: a family of real-time Java benchmarks.</em> JTRES 2009: 41-50.</li>
+  <li>T. Wrigstad, <strong>F. Pizlo</strong>, F. Meawad, L. Zhao, J. Vitek. <em>Loci: Simple Thread-Locality for Java.</em> In the 2009 European Conference on Object-Oriented Programming (ECOOP 2009).</li>
+  <li>J. Baker, A. Cunei, T. Kalibera, <strong>F. Pizlo</strong>, J. Vitek. <em>Accurate Garbage Collection in Uncooperative Environments.</em> Concurrency and Computation: Practice and Experience, 2008.</li>
+  <li><strong>F. Pizlo</strong>, E. Petrank, B. Steensgaard. <em>Path Specialization: Reducing Phased Execution Overheads.</em> In The 2008 International Symposium on Memory Management (ISMM 2008).</li>
+  <li><strong>F. Pizlo</strong>, E. Petrank, B. Steensgaard. <em>A Study of Concurrent Real-time Garbage Collectors.</em> In the ACM SIGPLAN 2008 Conference on Programming Language Design and Implementation (PLDI 2008). (Acceptance rate: 18%)</li>
+  <li><strong>F. Pizlo</strong>, D. Frampton, E. Petrank, B. Steensgaard. <em>Stopless: A Real-Time Garbage Collector for Modern Platforms.</em> In The 2007 International Symposium on Memory Management (ISMM 2007), October 2007.</li>
+  <li><strong>F. Pizlo</strong>, A. Hosking, J. Vitek. <em>Hierarchical Real-time Garbage Collection.</em> In the ACM SIGPLAN/SIGBED Conference on Languages, Compilers, and Tools for Embedded Systems (LCTES&#39;07).</li>
+  <li>J. Spring, <strong>F. Pizlo</strong>, R. Guerraoui, J. Vitek. <em>Reflexes: Programming Abstractions for Highly Responsive Systems.</em> In the 2007 ACM International Conference on Virtual Execution Environments (VEE&#39;07).</li>
+  <li>J. Baker, A. Cunei, <strong>F. Pizlo</strong>, J. Vitek. <em>Accurate Garbage Collection in Uncooperative Environments with Lazy Pointer Stacks.</em> In Compiler Construction, 16th International Conference, CC 2007.</li>
+  <li>A. Armbuster, J. Baker, A. Cunei, C. Flack, D. Holmes, <strong>F. Pizlo</strong>, E. Pla, M. Prochazka, J. Vitek. <em>A Real-Time Java Virtual Machine with Applications in Avionics.</em> In ACM Transactions in Embedded Computing Systems (TECS), 2006.</li>
+  <li><strong>F. Pizlo</strong>, J. Vitek. <em>An Empirical Evaluation of Memory Management Alternatives for Real-time Java.</em> Proceedings of the 27th IEEE Real-Time Systems Symposium (RTSS), 2006.</li>
+  <li>J. Baker, A. Cunei, C. Flack, <strong>F. Pizlo</strong>, M. Prochazka, J. Vitek, A. Armbuster, E. Pla, D. Holmes. <em>Real-time Java in Avionics Applications.</em> In Proceedings of the 12th IEEE Real-Time and Embedded Technology and Applications Symposium (RTAS), 2006.</li>
+  <li><strong>F. Pizlo</strong>. <em>First in, first out memory.</em> Presented at The 3rd Workshop on Java Technologies for Real-time and Embedded Systems, October 2005.</li>
+  <li><strong>F. Pizlo</strong>, J. Fox, D. Holmes, J. Vitek. <em>Real-time Java scoped memory: design patterns, semantics.</em> In Proceedings of the IEEE International Symposium on Object-oriented Real-Time Distributed Computing (ISORC&#39;04), pp 101112, Vienna, Austria, May 2004.</li>
+  <li><strong>F. Pizlo</strong>, M. Prochazka, S. Jaggannathan, J. Vitek. <em>Transactional lock-free data structure for Real Time Java.</em> In the Workshop on Concurrency and Synchronization in Java Programs, July 2004.</li>
+</ol>
+<h2>Publications in Other Disciplines</h2>
+
+<ol>
+  <li>VERITAS collaboration. <em>A connection between star formation activity and cosmic rays in the starburst galaxy M82.</em> Nature, Volume 462, pp. 770-772.</li>
+  <li>V. A. Acciari et al. <em>VERITAS Observations of a Very High Energy γ-ray Flare from the Blazar 3C 66A.</em> Astrophysical Journal Letters, 2009.</li>
+  <li>J. Holder et al. <em>The first VERITAS telescope.</em> Astroparticle Physics, Volume 25, Issue 6, p. 391-401. July 2006.</li>
+  <li>E. T. Linton et al. <em>A new search for primordial black hole evaporations using the Whipple gamma-ray telescope.</em> Journal of Cosmology and Astroparticle Physics, Issue 01, pp. 013. January 2006.</li>
+  <li>A. D. Falcone et al. <em>A Search for TeV Gamma-Ray Emission from High-peaked Flat-Spectrum Radio Quasars Using the Whipple Air Cerenkov Telescope.</em> The Astrophysical Journal, Volume 613, Issue 2, pp. 710-715. October 2004.</li>
+  <li>Steinman, R.M., Pizlo, Z., <strong>Pizlo, F.</strong> <em>Phi is not beta, and why Wertheimer&#39;s discovery launched the Gestalt revolution: a minireview.</em> Vision Research, 40, 2257-2264. 2000.</li>
+</ol>
+<hr>
+
+<p><strong>Logistics.</strong> US citizen. Polish citizen. Fluent in English and Polish. I usually go by &quot;Phil&quot; when speaking English and &quot;Filip&quot; when speaking Polish. My last name is originally &quot;Pizło&quot;, but I spell it &quot;Pizlo&quot; in English.</p>
+
+<p><em>Last updated 24 April 2026.</em></p>
+  </div>
+  
+</body>
+</html>
