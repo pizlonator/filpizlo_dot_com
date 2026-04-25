@@ -294,6 +294,29 @@ img {
   border-radius: 8px;
   margin: auto;
   display: block;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.lightbox img.loaded {
+  opacity: 1;
+}
+
+.lightbox-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.lightbox-loading.visible {
+  opacity: 1;
 }
 
 /* Resources page */
@@ -520,6 +543,7 @@ html {
 </div>
   </div>
   <div id="lightbox" class="lightbox" onclick="closeLightbox(event)">
+  <div id="lightbox-loading" class="lightbox-loading">Loading...</div>
   <img id="lightbox-img" src="" alt="">
 </div>
 <script>
@@ -530,11 +554,23 @@ function openLightbox(index) {
   currentIndex = index;
   const lightbox = document.getElementById('lightbox');
   const img = document.getElementById('lightbox-img');
+  const loading = document.getElementById('lightbox-loading');
+  
+  // Clear previous image and show loading state
+  img.classList.remove('loaded');
+  img.src = '';
+  loading.classList.add('visible');
   
   // Get appropriate image based on screen size
   const pixelRatio = window.devicePixelRatio || 1;
   let scale = '1x';
   if (pixelRatio >= 2) scale = '2x';
+  
+  // Set up onload handler to show image when loaded
+  img.onload = function() {
+    loading.classList.remove('visible');
+    img.classList.add('loaded');
+  };
   
   img.src = 'images/' + photos[currentIndex] + '-' + scale + '.jpg';
   lightbox.classList.add('active');
@@ -556,8 +592,18 @@ function closeLightbox(event) {
   // or on keyboard events (Escape key)
   if (!event || event.type === 'click' || event.type === 'keydown') {
     const lightbox = document.getElementById('lightbox');
+    const img = document.getElementById('lightbox-img');
+    const loading = document.getElementById('lightbox-loading');
+    
     lightbox.classList.remove('active');
     document.body.style.overflow = '';
+    
+    // Clear image after a short delay to avoid visible clearing during close animation
+    setTimeout(function() {
+      img.classList.remove('loaded');
+      img.src = '';
+      loading.classList.remove('visible');
+    }, 300);
   }
 }
 
