@@ -313,6 +313,7 @@ img {
   opacity: 0;
   transition: opacity 0.2s ease;
   pointer-events: none;
+  z-index: 1001;
 }
 
 .lightbox-loading.visible {
@@ -549,12 +550,22 @@ html {
 <script>
 const photos = ['395', 'arizona', 'bike', 'bike2', 'capitolabeach', 'cat', 'chair', 'cradle', 'cross', 'door', 'indiana1', 'indiana2', 'kansas', 'lafayette', 'leblon', 'pike', 'purdue', 'seattle', 'spiritquest', 'whipple', 'whipple2', 'windowsxp', 'wood', 'wood2'];
 let currentIndex = 0;
+let closeTimeout = null;
 
 function openLightbox(index) {
+  // Clear any pending close timeout to prevent race condition
+  if (closeTimeout) {
+    clearTimeout(closeTimeout);
+    closeTimeout = null;
+  }
+
   currentIndex = index;
   const lightbox = document.getElementById('lightbox');
   const img = document.getElementById('lightbox-img');
   const loading = document.getElementById('lightbox-loading');
+  
+  // Reset loading text in case it was previously set to error message
+  loading.textContent = 'Loading...';
   
   // Clear previous image and show loading state
   img.classList.remove('loaded');
@@ -566,10 +577,19 @@ function openLightbox(index) {
   let scale = '1x';
   if (pixelRatio >= 2) scale = '2x';
   
+  // Clear any existing handlers to prevent memory leaks
+  img.onload = null;
+  img.onerror = null;
+  
   // Set up onload handler to show image when loaded
   img.onload = function() {
     loading.classList.remove('visible');
     img.classList.add('loaded');
+  };
+  
+  // Set up onerror handler to show error message if image fails to load
+  img.onerror = function() {
+    loading.textContent = 'Error loading image';
   };
   
   img.src = 'images/' + photos[currentIndex] + '-' + scale + '.jpg';
@@ -588,9 +608,8 @@ function preloadImage(index) {
 }
 
 function closeLightbox(event) {
-  // Close on any click (since onclick is on lightbox container, all clicks bubble up)
-  // or on keyboard events (Escape key)
-  if (!event || event.type === 'click' || event.type === 'keydown') {
+  // Close only when clicking the lightbox background (not the image), or on keyboard events
+  if (!event || event.type === 'keydown' || (event.type === 'click' && event.target === event.currentTarget)) {
     const lightbox = document.getElementById('lightbox');
     const img = document.getElementById('lightbox-img');
     const loading = document.getElementById('lightbox-loading');
@@ -599,10 +618,13 @@ function closeLightbox(event) {
     document.body.style.overflow = '';
     
     // Clear image after a short delay to avoid visible clearing during close animation
-    setTimeout(function() {
+    closeTimeout = setTimeout(function() {
       img.classList.remove('loaded');
       img.src = '';
       loading.classList.remove('visible');
+      img.onload = null;
+      img.onerror = null;
+      closeTimeout = null;
     }, 300);
   }
 }
